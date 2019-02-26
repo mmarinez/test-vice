@@ -33,6 +33,15 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip3 install -r requirements/requirements.txt
+      - run:
+          command:
+            sudo mv chromedriver /usr/bin/chromedriver
+      - run:
+          comand:
+            sudo chown root:root /usr/bin/chromedriver
+      - run:
+          command:
+            sudo chmod +x /usr/bin/chromedriver
 
       - save_cache:
           paths:
