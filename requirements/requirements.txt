@@ -4,4 +4,4 @@ selenium
 allure-pytest
 virtualenv
 chromedriver
-chromium-chromedriver
+google-chrome-stable
