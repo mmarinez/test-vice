@@ -3,4 +3,4 @@ pyvirtualdisplay
 selenium
 allure-pytest
 virtualenv
-chromerdriver
+chromedriver
