@@ -1,3 +1,5 @@
 pytest
 pyvirtualdisplay
 selenium
+allure-pytest
+virtualenv
