@@ -52,7 +52,7 @@ jobs:
             pytest testcases/test_viceland.py -v --headless=true --alluredir ./reports/
 
       - store_artifacts:
-          path: test-reports
+          path: ./reports/
           destination: test-reports
 
       - store_test_results:
