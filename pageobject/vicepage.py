@@ -14,14 +14,14 @@ class vicepage(Page):
 
     def click_on_channel_videos_toggle(self):
         self._vice_channel_ = WebDriverWait(self.driver, 15).until(
-                                        EC.visibility_of_element_located((By.XPATH, 
-                                        "//div[text()='Vice Channels']")))
+                                    EC.visibility_of_element_located((
+                                    By.XPATH, "//div[text()='Vice Channels']")))
 
         self._vice_channel_.click()
 
     def click_on_FREE_label_link(self):
-        self._FREE_label_ = WebDriverWait(self.driver, 15).until(
-                                        EC.visibility_of_element_located((By.XPATH,
-                                        "//img[@alt='FREE']")))
+        self._FREE_label_link = WebDriverWait(self.driver, 15).until(
+                                EC.visibility_of_element_located((
+                                By.XPATH, "//img[@alt='FREE']")))
 
-        self._FREE_label_.click()
+        self._FREE_label_link.click()
