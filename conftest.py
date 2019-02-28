@@ -10,7 +10,8 @@ def pytest_addoption(parser):
 @pytest.yield_fixture(scope="class", autouse=True)
 def setup(request):
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--start-maximized")
+    # chrome_options.add_argument("--headless")
     driver = webdriver.Chrome(options=chrome_options)
     request.cls.driver = driver
 
