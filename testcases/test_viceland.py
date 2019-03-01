@@ -20,3 +20,8 @@ class Vice(unittest.TestCase):
     @allure.step("Validate empty spaces in topic grid")
     def test_grid_populated_columns(self):
         assert vicebroadlypage.validate_grid_content(self)
+
+    @allure.step("Validate dek alligment with the title in vice front page")
+    def test_dek_aligment_to_title(self):
+        vicepage.navigate_to_vice(self)
+        assert vicepage.validate_dek_aligment(self)

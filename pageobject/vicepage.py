@@ -27,13 +27,17 @@ class vicepage():
         self._FREE_label_link.click()
 
     def validate_dek_aligment(self):
-        self._title_text_ = WebDriverWait(Driver.driver, 15).until(
+        _title_text_ = WebDriverWait(Driver.driver, 15).until(
                                 EC.visibility_of_all_elements_located((
                                 By.XPATH, "//h2[@class='grid__wrapper__card__text__title hed-m m-b-2-xs']")))
 
-        self._dek_text_ = WebDriverWait(Driver.driver, 15).until(
+        _dek_text_ = WebDriverWait(Driver.driver, 15).until(
                                 EC.visibility_of_all_elements_located((
                                 By.XPATH, "//div[@class='grid__wrapper__card__text__summary bod-s m-b-2-xs']")))
 
-        print("Title position: ", self._title_text_[0].location, "\n")
-        print("Dek position: ", self._dek_text_[0].location, "\n")
+        for title, dek in zip(_title_text_, _dek_text_):
+            Driver.driver.execute_script('arguments[0].scrollIntoView()', title)
+            if (title.location['x'] != dek.location['x']):
+                print('title location x: ', title, 'dek location x: ', dek)
+                return False
+        return True
