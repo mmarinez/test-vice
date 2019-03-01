@@ -1,19 +1,36 @@
 import pytest
-from selenium import webdriver
+from pageobject.driver import Driver
+
+
+def pytest_runtest_setup():
+    browser = pytest.config.getoption("-B")
+    headless = pytest.config.getoption("-H")
+    Driver.initialize(browser, headless)
+
+
+def pytest_runtest_teardown():
+    Driver.quit()
+
+
+@pytest.fixture
+def browser():
+    """pytest fixture for browser flag"""
+    return pytest.config.getoption("-B")
+
+
+@pytest.fixture
+def headless_flag():
+    """pytest fixture for headless flag"""
+    return pytest.config.getoption("-H")
 
 
 def pytest_addoption(parser):
-    parser.addoption("--driver", action="store", default="chrome", help="Type in browser type (e.g. chrome)")
-    parser.addoption("--headless", action="store", default="headless", help="Is headless driver?")
-
-
-@pytest.yield_fixture(scope="class", autouse=True)
-def setup(request):
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--start-maximized")
-    # chrome_options.add_argument("--headless")
-    driver = webdriver.Chrome(options=chrome_options)
-    request.cls.driver = driver
-
-    yield driver
-    driver.quit()
+    parser.addoption("-B", "--browser",
+                     dest="browser",
+                     default="",
+                     help="Browser. Valid options are All, mobile, web and "
+                          "specific option ")
+    parser.addoption("-H", "--headless",
+                     dest="headless_flag",
+                     default="false",
+                     help="Use headless chrome?")

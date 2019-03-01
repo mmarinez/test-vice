@@ -2,6 +2,7 @@ import unittest
 
 import allure
 import pytest
+from values.urls import themed_topics
 from pageobject.vicepage import vicepage
 from pageobject.freevicepage import freevicepage
 from pageobject.vicebroadlypage import vicebroadlypage
@@ -18,15 +19,4 @@ class Vice(unittest.TestCase):
 
     @allure.step("Validate empty spaces in topic grid")
     def test_grid_populated_columns(self):
-        vicebroadlypage.navigate_to_broadly_topic_page(self)
-        assert vicebroadlypage.validate_grid_content(self)
-        vicebroadlypage.navigate_to_broadly_power_topic_page(self)
-        assert vicebroadlypage.validate_grid_content(self)
-        vicebroadlypage.navigate_to_broadly_life_topic_page(self)
-        assert vicebroadlypage.validate_grid_content(self)
-        vicebroadlypage.navigate_to_broadly_culture_topic_page(self)
-        assert vicebroadlypage.validate_grid_content(self)
-        vicebroadlypage.navigate_to_broadly_lore_topic_page(self)
-        assert vicebroadlypage.validate_grid_content(self)
-        vicebroadlypage.navigate_to_broadly_horoscope_topic_page(self)
         assert vicebroadlypage.validate_grid_content(self)
