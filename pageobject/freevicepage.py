@@ -1,23 +1,29 @@
 from selenium.webdriver.common.by import By
 from pageobject.driver import Driver
+from pageobject.base import Base
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-import time
+from pageobject.decorators import element, elements
 
 
-class freevicepage():
+class freevicepage(Base):
 
-    def __init__(self):
-        super(freevicepage, self).__init__()
+    _element_list = (By.XPATH, "//*")
 
-    def is_videos_label_displayed():
-        _element_list_ = WebDriverWait(Driver.driver, 15).until(
-                            EC.presence_of_all_elements_located((
-                            By.XPATH, "//*")))
+    @property
+    @elements
+    def article_list(self):
+        return self._element_list
 
-        for element in _element_list_:
-            Driver.driver.execute_script('arguments[0].scrollIntoView()', element)
+    def __init__(self, driver):
+        Base.__init__(self, driver)
+
+    def is_videos_label_displayed(self):
+        for element in self.article_list:
+            Driver.driver.execute_script(
+                'arguments[0].scrollIntoView()', element)
+
             if(element.get_attribute("class") in "duration"):
                 return False
             return True
