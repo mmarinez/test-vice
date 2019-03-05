@@ -11,7 +11,7 @@ class vicebroadlypage():
     def __init__(self):
         super(vicebroadlypage, self).__init__()
 
-    def validate_grid_content(self):
+    def validate_grid_content():
 
         for index, topic_url in themed_topics.items():
             Driver.driver.get(topic_url)

@@ -11,7 +11,7 @@ class freevicepage():
     def __init__(self):
         super(freevicepage, self).__init__()
 
-    def is_videos_label_displayed(self):
+    def is_videos_label_displayed():
         _element_list_ = WebDriverWait(Driver.driver, 15).until(
                             EC.presence_of_all_elements_located((
                             By.XPATH, "//*")))
