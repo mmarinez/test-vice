@@ -5,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from pageobject.base import Base
 from pageobject.decorators import element, elements
 
+import allure
+
 
 class vicePage(Base):
 
@@ -14,7 +16,6 @@ class vicePage(Base):
         "//h2[@class='grid__wrapper__card__text__title hed-m m-b-2-xs']")
     _dek_text = (By.XPATH,
         "//div[@class='grid__wrapper__card__text__summary bod-s m-b-2-xs']")
-
 
     @property
     @element
@@ -40,19 +41,22 @@ class vicePage(Base):
         Base.__init__(self, driver)
 
     def navigate_to_vice(self):
-        Driver.driver.get("https://www.vice.com/en_us")
+        with allure.step("Navigate to vice main page"):
+            Driver.driver.get("https://www.vice.com/en_us")
 
     def click_on_channel_videos_toggle(self):
-        self.video_channel_label.click()
+        with allure.step("Click video channel label menu"):
+            self.video_channel_label.click()
 
     def click_on_FREE_label_link(self):
-        self.free_label_link.click()
+        with allure.step("Click FREE channel option"):
+            self.free_label_link.click()
 
     def validate_dek_aligment(self):
         for title, dek in zip(self.title_text, self.dek_text):
             Driver.driver.execute_script('arguments[0].scrollIntoView()',
                                             title)
             if (title.location['x'] != dek.location['x']):
-                print('title location x: ', title, 'dek location x: ', dek)
+                print('title text: ', title.text, 'dek text: ', dek.text)
                 return False
         return True
