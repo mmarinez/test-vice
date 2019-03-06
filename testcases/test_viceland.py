@@ -11,7 +11,7 @@ from pageobject.vicelandpage import vicelandPage
 
 class Vice(unittest.TestCase):
 
-    """ @allure.step("Validate hidden video module in FREE channel")
+    @allure.step("Validate hidden video module in FREE channel")
     def test_hidden_video_label(self):
         vc_page = vicePage(Driver.driver)
         fv_page = freevicepage(Driver.driver)
@@ -29,7 +29,7 @@ class Vice(unittest.TestCase):
     def test_dek_aligment_to_title(self):
         vc_page = vicePage(Driver.driver)
         vc_page.navigate_to_vice()
-        assert vc_page.validate_dek_aligment() """
+        assert vc_page.validate_dek_aligment()
 
     @allure.step("Validate viceland video player")
     def test_video_player(self):
