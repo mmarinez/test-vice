@@ -4,7 +4,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pageobject.base import Base
 from pageobject.decorators import element, elements
-from values.urls import vice_homepage
 
 import allure
 import os
@@ -19,7 +18,6 @@ class vicePage(Base):
     _dek_text = (By.XPATH,
         "//div[@class='grid__wrapper__card__text__summary bod-s m-b-2-xs']")
 
-    os.environ['VICE'] = vice_homepage
     VICE_URL = os.environ.get('VICE')
 
     @property

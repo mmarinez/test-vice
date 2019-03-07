@@ -19,7 +19,6 @@ class Driver(object):
         chrome_options = webdriver.ChromeOptions()
 
         if cls.headless == "true":
-            chrome_options.add_argument("--start-maximized")
             chrome_options.add_argument("--headless")
             chrome_options.add_argument('--no-sandbox')
             chrome_options.add_argument("--disable-dev-shm-usage")
@@ -28,6 +27,7 @@ class Driver(object):
             if cls.browser != "":
                 cls.driver = cls._browserstack(browser)
             else:
+                chrome_options.add_argument("--start-maximized")
                 cls.driver = webdriver.Chrome(options=chrome_options)
 
     @classmethod

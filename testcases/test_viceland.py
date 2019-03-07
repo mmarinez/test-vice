@@ -38,3 +38,7 @@ class Vice(unittest.TestCase):
         vl_page.click_watch_free_section()
         vl_page.click_play_button()
         assert vl_page.validate_mute_video_volume()
+
+    """ @allure.step("Validate video time laps")
+    def test_video_player_time_laps(self):
+        pass """
