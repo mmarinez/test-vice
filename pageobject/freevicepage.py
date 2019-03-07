@@ -24,6 +24,6 @@ class freevicepage(Base):
             Driver.driver.execute_script(
                 'arguments[0].scrollIntoView()', element)
 
-            if(element.get_attribute("class") in "duration"):
-                return False
-            return True
+            if "duration" not in element.get_attribute("class"):
+                return True
+            return False

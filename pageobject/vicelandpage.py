@@ -3,7 +3,9 @@ from pageobject.decorators import element, elements
 from pageobject.driver import Driver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from values.urls import viceland_homepage
 import allure
+import os
 import time
 
 
@@ -14,6 +16,9 @@ class vicelandPage(Base):
     _video_player = (By.XPATH, "//div[@class='vp__controls']")
     _iframe_player = (By.XPATH, "//iframe[@class='player-embed']")
     _volume_control = (By.XPATH, "//div[contains(@class,'vp__controls__icon vp__icon--volume')]")
+
+    os.environ['VICELAND'] = viceland_homepage
+    VICELAND_URL = os.environ.get('VICELAND')
 
     @property
     @element
@@ -44,7 +49,7 @@ class vicelandPage(Base):
         Base.__init__(self, driver)
 
     def navigate_to_viceland(self):
-        Driver.driver.get("https://www.viceland.com/en_us")
+        Driver.driver.get(self.VICELAND_URL)
 
     def click_watch_free_section(self):
         with allure.step("Click watch free videos link"):

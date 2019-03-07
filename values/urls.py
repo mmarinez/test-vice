@@ -7,4 +7,5 @@ themed_topics = dict([
     ('topic_horoscopes', 'https://broadly.vice.com/en_us/topic/horoscopes')
 ])
 
-vice_homepage = ""
+viceland_homepage = "https://www.viceland.com/en_us"
+vice_homepage = "https://www.vice.com/en_us"

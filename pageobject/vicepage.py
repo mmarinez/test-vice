@@ -4,8 +4,10 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pageobject.base import Base
 from pageobject.decorators import element, elements
+from values.urls import vice_homepage
 
 import allure
+import os
 
 
 class vicePage(Base):
@@ -16,6 +18,9 @@ class vicePage(Base):
         "//h2[@class='grid__wrapper__card__text__title hed-m m-b-2-xs']")
     _dek_text = (By.XPATH,
         "//div[@class='grid__wrapper__card__text__summary bod-s m-b-2-xs']")
+
+    os.environ['VICE'] = vice_homepage
+    VICE_URL = os.environ.get('VICE')
 
     @property
     @element
@@ -42,7 +47,7 @@ class vicePage(Base):
 
     def navigate_to_vice(self):
         with allure.step("Navigate to vice main page"):
-            Driver.driver.get("https://www.vice.com/en_us")
+            Driver.driver.get(self.VICE_URL)
 
     def click_on_channel_videos_toggle(self):
         with allure.step("Click video channel label menu"):
