@@ -57,3 +57,12 @@ jobs:
 
       - store_test_results:
           path: ./reports/
+
+nightly:
+  triggers:
+    - schedule:
+        cron: "2 * * * *"
+        filters:
+          branches:
+            only:
+              - master
