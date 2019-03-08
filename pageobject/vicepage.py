@@ -18,6 +18,7 @@ class vicePage(Base):
     _dek_text = (By.XPATH,
         "//div[@class='grid__wrapper__card__text__summary bod-s m-b-2-xs']")
 
+    os.environ['VICE'] = "https://www.vice.com/en_us"
     VICE_URL = os.environ.get('VICE')
 
     @property
