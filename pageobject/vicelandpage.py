@@ -1,6 +1,6 @@
 from pageobject.base import Base
 from pageobject.decorators import element, elements
-from pageobject.driver import Driver
+from driver.driver import Driver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 import allure

@@ -1,5 +1,5 @@
 import pytest
-from pageobject.driver import Driver
+from driver.driver import Driver
 
 
 def pytest_runtest_setup():

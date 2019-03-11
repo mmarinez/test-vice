@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from pageobject.driver import Driver
+from driver.driver import Driver
 from pageobject.base import Base
 from pageobject.decorators import elements
 from selenium.webdriver.support.wait import WebDriverWait

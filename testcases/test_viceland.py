@@ -2,7 +2,7 @@ import unittest
 
 import allure
 import pytest
-from pageobject.driver import Driver
+from driver.driver import Driver
 from pageobject.vicepage import vicePage
 from pageobject.freevicepage import freevicepage
 from pageobject.vicebroadlypage import vicebroadlypage
