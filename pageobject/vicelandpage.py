@@ -16,8 +16,7 @@ class vicelandPage(Base):
     _iframe_player = (By.XPATH, "//iframe[@class='player-embed']")
     _volume_control = (By.XPATH, "//div[contains(@class,'vp__controls__icon vp__icon--volume')]")
     _player_wrapper = (By.XPATH, "//div[contains(@class,'vp__container vp__container--')]")
-
-    os.environ['VICELAND'] = "https://www.viceland.com/en_us"
+ 
     VICELAND_URL = os.environ.get('VICELAND')
 
     @property
