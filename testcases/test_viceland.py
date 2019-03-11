@@ -3,42 +3,32 @@ import unittest
 import allure
 import pytest
 from driver.driver import Driver
-from pageobject.vicepage import vicePage
-from pageobject.freevicepage import freevicepage
 from pageobject.vicebroadlypage import vicebroadlypage
 from pageobject.vicelandpage import vicelandPage
+from pageobject.factory import Factory
 
 
 class Vice(unittest.TestCase):
 
     @allure.step("Validate hidden video module in FREE channel")
     def test_hidden_video_label(self):
-        vc_page = vicePage(Driver.driver)
-        fv_page = freevicepage(Driver.driver)
-        vc_page.navigate_to_vice()
-        vc_page.click_on_channel_videos_toggle()
-        vc_page.click_on_FREE_label_link()
-        assert fv_page.is_videos_label_displayed()
+        Factory.vc_page.navigate_to_vice()
+        Factory.vc_page.click_on_channel_videos_toggle()
+        Factory.vc_page.click_on_FREE_label_link()
+        assert Factory.fv_page.is_videos_label_displayed()
 
     @allure.step("Validate empty spaces in topic grid")
     def test_grid_populated_columns(self):
-        vcbroadly_page = vicebroadlypage(Driver.driver)
-        assert vcbroadly_page.validate_grid_content()
+        assert Factory.vb_page.validate_grid_content()
 
     @allure.step("Validate dek alligment with the title in vice front page")
     def test_dek_aligment_to_title(self):
-        vc_page = vicePage(Driver.driver)
-        vc_page.navigate_to_vice()
-        assert vc_page.validate_dek_aligment()
+        Factory.vc_page.navigate_to_vice()
+        assert Factory.vc_page.validate_dek_aligment()
 
     @allure.step("Validate viceland video player")
     def test_video_player(self):
-        vl_page = vicelandPage(Driver.driver)
-        vl_page.navigate_to_viceland()
-        vl_page.click_watch_free_section()
-        vl_page.click_play_button()
-        assert vl_page.validate_mute_video_volume()
-
-    """ @allure.step("Validate video time laps")
-    def test_video_player_time_laps(self):
-        pass """
+        Factory.vl_page.navigate_to_viceland()
+        Factory.vl_page.click_watch_free_section()
+        Factory.vl_page.click_play_button()
+        assert Factory.vl_page.validate_mute_video_volume()

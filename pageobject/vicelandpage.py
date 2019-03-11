@@ -11,7 +11,7 @@ import time
 class vicelandPage(Base):
 
     _watch_free_link = (By.XPATH, "(//a[text()='Watch Free'])[1]")
-    _play_button = (By.CSS_SELECTOR, " div.vp__controls__playback > div")
+    _play_button = (By.CSS_SELECTOR, "div.vp__controls__playback > div")
     _video_player = (By.XPATH, "//div[@class='vp__controls']")
     _iframe_player = (By.XPATH, "//iframe[@class='player-embed']")
     _volume_control = (By.XPATH, "//div[contains(@class,'vp__controls__icon vp__icon--volume')]")
