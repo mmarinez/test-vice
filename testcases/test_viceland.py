@@ -3,8 +3,6 @@ import unittest
 import allure
 import pytest
 from driver.driver import Driver
-from pageobject.vicebroadlypage import vicebroadlypage
-from pageobject.vicelandpage import vicelandPage
 from pageobject.factory import Factory
 
 
