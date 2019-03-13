@@ -14,9 +14,9 @@ class vicePage(Base):
     _video_channel_label = (By.XPATH, "//div[text()='Vice Channels']")
     _FREE_label_link = (By.XPATH, "//img[@alt='FREE']")
     _title_text = (By.XPATH,
-        "//h2[@class='grid__wrapper__card__text__title hed-m m-b-2-xs']")
+                   "//h2[@class='grid__wrapper__card__text__title hed-m m-b-2-xs']")
     _dek_text = (By.XPATH,
-        "//div[@class='grid__wrapper__card__text__summary bod-s m-b-2-xs']")
+                 "//div[@class='grid__wrapper__card__text__summary bod-s m-b-2-xs']")
 
     VICE_URL = os.environ.get('VICE')
 
@@ -58,7 +58,7 @@ class vicePage(Base):
     def validate_dek_aligment(self):
         for title, dek in zip(self.title_text, self.dek_text):
             Driver.driver.execute_script('arguments[0].scrollIntoView()',
-                                            title)
+                                         title)
             if (title.location['x'] != dek.location['x']):
                 print('title text: ', title.text, 'dek text: ', dek.text)
                 return False

@@ -30,3 +30,13 @@ class Vice(unittest.TestCase):
         Factory.vl_page.click_watch_free_section()
         Factory.vl_page.click_play_button()
         assert Factory.vl_page.validate_mute_video_volume()
+
+    @allure.step("Validate FREE This week section in the viceland front page")
+    def test_FREE_this_week_section(self):
+        Factory.vl_page.navigate_to_viceland()
+        assert Factory.vl_page.validate_FREE_this_week_title()
+
+    @allure.step("Validate FREE episode availability")
+    def test_free_episode(self):
+        Factory.vl_page.navigate_to_viceland()
+        assert Factory.vl_page.click_FREE_episode()

@@ -6,6 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from pageobject.decorators import element, elements
 
+import allure
+
 
 class freevicepage(Base):
 
@@ -20,10 +22,11 @@ class freevicepage(Base):
         Base.__init__(self, driver)
 
     def is_videos_label_displayed(self):
-        for element in self.article_list:
-            Driver.driver.execute_script(
-                'arguments[0].scrollIntoView()', element)
+        with allure.step("Validate that the video label is displayed"):
+            for element in self.article_list:
+                Driver.driver.execute_script(
+                    'arguments[0].scrollIntoView()', element)
 
-            if "duration" not in element.get_attribute("class"):
-                return True
-            return False
+                if "duration" not in element.get_attribute("class"):
+                    return True
+                return False
