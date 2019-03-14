@@ -99,6 +99,7 @@ class vicelandPage(Base):
     def click_play_button(self):
         with allure.step("Play video"):
             Driver.driver.switch_to.frame(self.video_player_frame)
+            time.sleep(5)
             ActionChains(Driver.driver).move_to_element(
                 self.free_videos_wrapper).perform()
             Driver.driver.execute_script("arguments[0].click()",
@@ -134,16 +135,17 @@ class vicelandPage(Base):
                     date_time_obj = datetime.strptime(
                         '00:00', '%M:%S')
                     time.sleep(10)
-                    ActionChains(Driver.driver).move_to_element(
-                        self.free_videos_wrapper).perform()
+                    
+                    ActionChains(Driver.driver).move_to_element_with_offset(
+                      self.free_videos_wrapper, 50, 50).perform()
                     date_time_current = datetime.strptime(
                         self.time_stamp.text, '%M:%S')
+
                     if date_time_current.time() < date_time_obj.time():
                         print(date_time_current.time())
                         return False
 
                     Driver.driver.back()
-                    time.sleep(5)
                 except:
                     self.click_next_button.click()
                     self.free_episodes[index].click()
@@ -152,15 +154,16 @@ class vicelandPage(Base):
                     date_time_obj = datetime.strptime(
                         '00:00', '%M:%S')
                     time.sleep(10)
-                    ActionChains(Driver.driver).move_to_element(
-                        self.free_videos_wrapper).perform()
+
+                    ActionChains(Driver.driver).move_to_element_with_offset(
+                        self.free_videos_wrapper, 50, 50).perform()
                     date_time_current = datetime.strptime(
                         self.time_stamp.text, '%M:%S')
+
                     if date_time_current.time() < date_time_obj.time():
                         print(date_time_current.time())
                         return False
                     self.validate_video_player_availability()
 
                     Driver.driver.back()
-                    time.sleep(5)
             return True
