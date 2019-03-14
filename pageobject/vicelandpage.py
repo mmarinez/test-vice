@@ -19,8 +19,6 @@ class vicelandPage(Base):
     _iframe_player = (By.XPATH, "//iframe[@class='player-embed']")
     _volume_control = (
         By.XPATH, "//div[contains(@class,'vp__controls__icon vp__icon--volume')]")
-    _player_wrapper = (
-        By.XPATH, "//div[contains(@class,'vp__container vp__container--')]")
     _free_this_week_title = (By.XPATH, "//h3[text()='Free This Week']")
     _free_this_week_episodes = (
         By.XPATH, "//div[@data-index >= 0 and not(contains(@class,'-cloned')) and position() >= 4]")
@@ -28,6 +26,8 @@ class vicelandPage(Base):
     _next_button = (
         By.XPATH, '//button[contains(@class,"slick-arrow slick-next")]')
     _time_stamp = (By.XPATH, '//div[@class="vp__timeline__timestamp"]')
+    _channel_finder = (
+        By.CSS_SELECTOR, "div[class*='menu--left'] > a[href*='channel-finder']")
 
     VICELAND_URL = os.environ.get('VICELAND')
 
@@ -86,6 +86,16 @@ class vicelandPage(Base):
     def time_stamp(self):
         return self._time_stamp
 
+    @property
+    @element
+    def channel_finder(self):
+        return self._channel_finder
+
+    @property
+    @element
+    def input_zip_code(self):
+        return self._input_zip_code
+
     def __ini__(self, driver):
         Base.__init__(self, driver)
 
@@ -135,9 +145,9 @@ class vicelandPage(Base):
                     date_time_obj = datetime.strptime(
                         '00:00', '%M:%S')
                     time.sleep(10)
-                    
+
                     ActionChains(Driver.driver).move_to_element_with_offset(
-                      self.free_videos_wrapper, 50, 50).perform()
+                        self.free_videos_wrapper, 50, 50).perform()
                     date_time_current = datetime.strptime(
                         self.time_stamp.text, '%M:%S')
 
@@ -167,3 +177,6 @@ class vicelandPage(Base):
 
                     Driver.driver.back()
             return True
+
+    def click_channel_finder(self):
+        self.channel_finder.click()

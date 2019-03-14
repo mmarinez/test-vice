@@ -40,3 +40,10 @@ class Vice(unittest.TestCase):
     def test_free_episode(self):
         Factory.vl_page.navigate_to_viceland()
         assert Factory.vl_page.click_FREE_episode()
+
+    @allure.step("Validate unable to get provider message")
+    def test_provider_message(self):
+        Factory.vl_page.navigate_to_viceland()
+        Factory.vl_page.click_channel_finder()
+        Factory.cf_page.input_type_invalid_zip_code()
+        assert Factory.cf_page.validate_error_provider_message()
