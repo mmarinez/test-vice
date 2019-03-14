@@ -5,10 +5,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from datetime import datetime
 import allure
 import os
 import time
-import datetime
 
 
 class vicelandPage(Base):
@@ -23,8 +23,8 @@ class vicelandPage(Base):
         By.XPATH, "//div[contains(@class,'vp__container vp__container--')]")
     _free_this_week_title = (By.XPATH, "//h3[text()='Free This Week']")
     _free_this_week_episodes = (
-        By.XPATH, "//div[@data-index >= 0 and not(contains(@class,'-cloned'))]")
-    _free_videos_wrapper = (By.XPATH, "(//div[@class='slick-track'])[2]")
+        By.XPATH, "//div[@data-index >= 0 and not(contains(@class,'-cloned')) and position() >= 4]")
+    _free_videos_wrapper = (By.XPATH, "//div[@class='vp__components']")
     _next_button = (
         By.XPATH, '//button[contains(@class,"slick-arrow slick-next")]')
     _time_stamp = (By.XPATH, '//div[@class="vp__timeline__timestamp"]')
@@ -100,7 +100,7 @@ class vicelandPage(Base):
         with allure.step("Play video"):
             Driver.driver.switch_to.frame(self.video_player_frame)
             ActionChains(Driver.driver).move_to_element(
-                self.player_wrapper).perform()
+                self.free_videos_wrapper).perform()
             Driver.driver.execute_script("arguments[0].click()",
                                          self.play_button)
 
@@ -127,17 +127,16 @@ class vicelandPage(Base):
 
     def click_FREE_episode(self):
         with allure.step("Click episode in the FREE this week section"):
-            for i in range(1, 5):
+            for index, episode in enumerate(self.free_episodes, start=1):
                 try:
-                    e = WebDriverWait(Driver.driver, 15).until(
-                        EC.visibility_of_any_elements_located((
-                            By.XPATH, "//div[@data-index >= 0 and not(contains(@class,'-cloned')) and position() >= 4]")))
-                    e[i].click()
-                    time.sleep(5)
+                    self.free_episodes[index].click()
                     Driver.driver.switch_to.frame(self.video_player_frame)
-                    date_time_obj = datetime.datetime.strptime('00:00', '%M:%S')
+                    date_time_obj = datetime.strptime(
+                        '00:00', '%M:%S')
                     time.sleep(10)
-                    date_time_current = datetime.datetime.strptime(
+                    ActionChains(Driver.driver).move_to_element(
+                        self.free_videos_wrapper).perform()
+                    date_time_current = datetime.strptime(
                         self.time_stamp.text, '%M:%S')
                     if date_time_current.time() < date_time_obj.time():
                         print(date_time_current.time())
@@ -147,17 +146,15 @@ class vicelandPage(Base):
                     time.sleep(5)
                 except:
                     self.click_next_button.click()
-                    time.sleep(5)
-                    e = WebDriverWait(Driver.driver, 15).until(
-                        EC.visibility_of_any_elements_located((
-                            By.XPATH, "//div[@data-index >= 0 and not(contains(@class,'-cloned')) and position() >= 4]")))
-                    e[i].click()
+                    self.free_episodes[index].click()
                     time.sleep(5)
                     Driver.driver.switch_to.frame(self.video_player_frame)
-                    date_time_obj = datetime.datetime.strptime(
+                    date_time_obj = datetime.strptime(
                         '00:00', '%M:%S')
                     time.sleep(10)
-                    date_time_current = datetime.datetime.strptime(
+                    ActionChains(Driver.driver).move_to_element(
+                        self.free_videos_wrapper).perform()
+                    date_time_current = datetime.strptime(
                         self.time_stamp.text, '%M:%S')
                     if date_time_current.time() < date_time_obj.time():
                         print(date_time_current.time())
