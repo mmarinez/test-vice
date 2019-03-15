@@ -26,7 +26,7 @@ class ChannelFinder(Base):
     def error_provider_message(self):
         return self._error_provider_message
 
-    INVALID_ZIPCODE_TEST = os.environ.get('INVALID_ZIPCODE')
+    INVALID_ZIPCODE_TEST = os.environ.get('INVALID_ZIPCODE_TEST')
 
     def __init__(self, driver):
         Base.__init__(self, driver)
