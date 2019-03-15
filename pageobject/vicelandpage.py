@@ -136,46 +136,47 @@ class vicelandPage(Base):
     def validate_video_player_availability(self):
         return self.play_button.is_displayed()
 
-    def click_FREE_episode(self):
+    def click_free_episode(self, free_episode, index):
+        free_episode[index].click()
+
+    def get_default_timestamp_value(self):
+        date_time_obj = datetime.strptime(
+            '00:00', '%M:%S')
+        return date_time_obj
+
+    def get_current_timestamp_value(self):
+        time.sleep(10)
+        ActionChains(Driver.driver).move_to_element_with_offset(
+            self.free_videos_wrapper, 50, 50).perform()
+
+        date_time_current = datetime.strptime(
+            self.time_stamp.text, '%M:%S')
+        return date_time_current
+
+    def validate_FREE_episode(self):
         with allure.step("Click episode in the FREE this week section"):
             for index, episode in enumerate(self.free_episodes, start=1):
                 try:
-                    self.free_episodes[index].click()
+                    self.click_free_episode(self.free_episodes, index)
                     Driver.driver.switch_to.frame(self.video_player_frame)
-                    date_time_obj = datetime.strptime(
-                        '00:00', '%M:%S')
-                    time.sleep(10)
 
-                    ActionChains(Driver.driver).move_to_element_with_offset(
-                        self.free_videos_wrapper, 50, 50).perform()
-                    date_time_current = datetime.strptime(
-                        self.time_stamp.text, '%M:%S')
-
-                    if date_time_current.time() < date_time_obj.time():
-                        print(date_time_current.time())
+                    if self.get_current_timestamp_value() < self.get_default_timestamp_value():
+                        print(self.get_current_timestamp_value())
                         return False
 
                     Driver.driver.back()
+                    time.sleep(2)
                 except:
                     self.click_next_button.click()
-                    self.free_episodes[index].click()
-                    time.sleep(5)
+                    self.click_free_episode(self.free_episodes, index)
                     Driver.driver.switch_to.frame(self.video_player_frame)
-                    date_time_obj = datetime.strptime(
-                        '00:00', '%M:%S')
-                    time.sleep(10)
 
-                    ActionChains(Driver.driver).move_to_element_with_offset(
-                        self.free_videos_wrapper, 50, 50).perform()
-                    date_time_current = datetime.strptime(
-                        self.time_stamp.text, '%M:%S')
-
-                    if date_time_current.time() < date_time_obj.time():
-                        print(date_time_current.time())
+                    if self.get_current_timestamp_value() < self.get_default_timestamp_value():
+                        print(self.get_current_timestamp_value())
                         return False
-                    self.validate_video_player_availability()
 
                     Driver.driver.back()
+                    time.sleep(2)
             return True
 
     def click_channel_finder(self):
