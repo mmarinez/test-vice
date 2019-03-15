@@ -36,4 +36,9 @@ class ChannelFinder(Base):
         time.sleep(5)
 
     def validate_error_provider_message(self):
-        return self.error_provider_message.is_displayed()
+        try:
+            if self.error_provider_message.is_displayed():
+                return True
+        except Exception as e:
+            print(e)
+            return False
