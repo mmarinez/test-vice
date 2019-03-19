@@ -47,3 +47,8 @@ class Vice(unittest.TestCase):
         Factory.vl_page.click_channel_finder()
         Factory.cf_page.input_type_invalid_zip_code()
         assert Factory.cf_page.validate_error_provider_message()
+
+    @allure.step("Validate episode included in the program list")
+    def test_episode_program(self):
+        Factory.vl_page.navigate_to_viceland()
+        assert Factory.vl_page.validate_episode_link_to_the_program()

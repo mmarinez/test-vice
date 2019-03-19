@@ -28,6 +28,19 @@ class vicelandPage(Base):
     _time_stamp = (By.XPATH, '//div[@class="vp__timeline__timestamp"]')
     _channel_finder = (
         By.CSS_SELECTOR, "div[class*='menu--left'] > a[href*='channel-finder']")
+    _episodes_section_title = (By.XPATH, "//h3[text()='EPISODES']")
+    _episodes_section_links = (By.CSS_SELECTOR, "a[class*='grid']")
+    _viceland_logo = (
+        By.CSS_SELECTOR, "img[src*='viceland.svg']:not([alt]):not([width])")
+    _close_providers_icon = (
+        By.CSS_SELECTOR, "div[class=mvpd-modal] > button >img[src*='btn_close.png']")
+    _episode_name_list = (By.CSS_SELECTOR, "h2[class*='grid']")
+    _episode_name = (By.CSS_SELECTOR, "h4[class*='title hed']")
+    _show_thumbnail = (By.CSS_SELECTOR, "img[class*='thumbnail']")
+    _episode_list_for_vice_live = (
+        By.XPATH, "//div[@data-index >= 0 ]/div/a[contains(@href,'tuesday') or contains(@href,'wednesday') or contains(@href,'thursday') or contains(@href,'monday')]/h6[@class='slider__title m-t-3-xs hed-m']")
+    _greyout_background = (By.XPATH, "//div[@class='tve-greyout']")
+    _default_frame = (By.XPATH, "//body[@class='ssr']")
 
     VICELAND_URL = os.environ.get('VICELAND')
 
@@ -96,6 +109,56 @@ class vicelandPage(Base):
     def input_zip_code(self):
         return self._input_zip_code
 
+    @property
+    @element
+    def episode_section_title(self):
+        return self._episodes_section_title
+
+    @property
+    @elements
+    def episode_list(self):
+        return self._episodes_section_links
+
+    @property
+    @element
+    def viceland_logo(self):
+        return self._viceland_logo
+
+    @property
+    @element
+    def close_providers_icon(self):
+        return self._close_providers_icon
+
+    @property
+    @elements
+    def episode_name_list(self):
+        return self._episode_name_list
+
+    @property
+    @element
+    def episode_name(self):
+        return self._episode_name
+
+    @property
+    @element
+    def show_thumbnail(self):
+        return self._show_thumbnail
+
+    @property
+    @elements
+    def episode_list_for_vice_live(self):
+        return self._episode_list_for_vice_live
+
+    @property
+    @element
+    def greyout_background(self):
+        return self._greyout_background
+
+    @property
+    @element
+    def default_frame(self):
+        return self._default_frame
+
     def __ini__(self, driver):
         Base.__init__(self, driver)
 
@@ -160,7 +223,7 @@ class vicelandPage(Base):
                     self.click_free_episode(self.free_episodes, index)
                     Driver.driver.switch_to.frame(self.video_player_frame)
 
-                    if self.get_current_timestamp_value() < self.get_default_timestamp_value():
+                    if self.get_current_timestamp_value() == self.get_default_timestamp_value():
                         print(self.get_current_timestamp_value())
                         return False
 
@@ -171,7 +234,7 @@ class vicelandPage(Base):
                     self.click_free_episode(self.free_episodes, index)
                     Driver.driver.switch_to.frame(self.video_player_frame)
 
-                    if self.get_current_timestamp_value() < self.get_default_timestamp_value():
+                    if self.get_current_timestamp_value() == self.get_default_timestamp_value():
                         print(self.get_current_timestamp_value())
                         return False
 
@@ -181,3 +244,57 @@ class vicelandPage(Base):
 
     def click_channel_finder(self):
         self.channel_finder.click()
+
+    def focus_on_episodes_section(self):
+        Driver.driver.execute_script(
+            "arguments[0].scrollIntoView()", self.episode_section_title)
+
+    def click_episode(self, episode, index):
+        episode[index].click()
+
+    def click_viceland_logo(self):
+        self.viceland_logo.click()
+
+    def get_episode_name(self):
+        return self.episode_name.text
+
+    def click_show_thumbnail(self):
+        self.show_thumbnail.click()
+
+    def validate_episode_link_to_the_program(self):
+        for index, episode in enumerate(self.episode_list):
+            self.focus_on_episodes_section()
+            self.click_episode(self.episode_list, index)
+
+            try:
+                ActionChains(Driver.driver).move_to_element(
+                    self.close_providers_icon).click().perform()
+            except:
+                episode_name = self.episode_name.text
+                self.click_show_thumbnail()
+
+                for episode in self.episode_name_list:
+                    if episode_name == episode.text:
+                        Driver.driver.execute_script(
+                            "arguments[0].scrollIntoView()", episode)
+
+                        self.navigate_to_viceland()
+                        break
+                    else:
+                        continue
+                    return False
+            else:
+                episode_name = self.episode_name.text
+                self.click_show_thumbnail()
+
+                for episode in self.episode_name_list:
+                    if episode_name == episode.text:
+                        Driver.driver.execute_script(
+                            "arguments[0].scrollIntoView()", episode)
+
+                        self.navigate_to_viceland()
+                        break
+                    else:
+                        continue
+                    return False
+        return True
