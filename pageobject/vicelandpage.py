@@ -281,8 +281,9 @@ class vicelandPage(Base):
                         self.navigate_to_viceland()
                         break
                     else:
-                        continue
-                    return False
+                        if episode.text != self.episode_list[-1].text:
+                            continue
+                        return False
             else:
                 episode_name = self.episode_name.text
                 self.click_show_thumbnail()
@@ -295,6 +296,7 @@ class vicelandPage(Base):
                         self.navigate_to_viceland()
                         break
                     else:
-                        continue
-                    return False
+                        if episode.text != self.episode_list[-1].text:
+                            continue
+                        return False
         return True
