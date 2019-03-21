@@ -14,7 +14,8 @@ class freevicepage(Base):
 
     _element_list = (By.CSS_SELECTOR, "a[class]")
     _section_headers = (By.CSS_SELECTOR, "h3,h2[class*='head']")
-    _video_strings_validations = ("video", "Videos", "Episodes", "Clips")
+    _video_strings_validations = (
+        "video", "Video", "Episode", "Clip", "duration")
 
     @property
     @elements
@@ -48,7 +49,9 @@ class freevicepage(Base):
                     'arguments[0].scrollIntoView()', element)
 
                 for element_attribute in self.catch_all_element_attributes(element):
-                    if not any(validator in element.get_attribute(element_attribute) for validator in self._video_strings_validations):
+                    if not any(validator in element.get_attribute(element_attribute)
+                               for validator in self._video_strings_validations):
+
                         if element.text != self.article_list[-1].text:
                             continue
                         return True
@@ -64,7 +67,9 @@ class freevicepage(Base):
                     'arguments[0].scrollIntoView()', header)
 
                 for element_attribute in self.catch_all_element_attributes(header):
-                    if not any(validator in header.get_attribute(element_attribute) for validator in self._video_strings_validations):
+                    if not any(validator in header.get_attribute(element_attribute)
+                               for validator in self._video_strings_validations):
+
                         if header.text != self.section_headers[-1].text:
                             continue
                         return True
