@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from pageobject.decorators import element, elements
 import time
+import os
 
 import allure
 
@@ -16,6 +17,8 @@ class freevicepage(Base):
     _section_headers = (By.CSS_SELECTOR, "h3,h2[class*='head']")
     _video_strings_validations = (
         "video", "Video", "Episode", "Clip", "duration")
+
+    VICE_FREE = os.environ.get('VICE_FREE')
 
     @property
     @elements
@@ -31,7 +34,7 @@ class freevicepage(Base):
         Base.__init__(self, driver)
 
     def navigate_to_vice_free(self):
-        Driver.redirect_to("https://free.vice.com/en_us")
+        Driver.redirect_to(self.VICE_FREE)
 
     def catch_all_element_attributes(self, element):
         attrs = Driver.driver.execute_script(
@@ -79,5 +82,4 @@ class freevicepage(Base):
 
     def has_video_player(self):
         with allure.step("Validate that video player free"):
-            time.sleep(5)
             return self.is_video_text_assigned() and self.is_videos_label_displayed()
