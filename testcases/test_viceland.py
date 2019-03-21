@@ -10,10 +10,8 @@ class Vice(unittest.TestCase):
 
     @allure.step("Validate hidden video module in FREE channel")
     def test_hidden_video_label(self):
-        Factory.vc_page.navigate_to_vice()
-        Factory.vc_page.click_on_channel_videos_toggle()
-        Factory.vc_page.click_on_FREE_label_link()
-        assert Factory.fv_page.is_videos_label_displayed()
+        Factory.fv_page.navigate_to_vice_free()
+        assert Factory.fv_page.has_video_player()
 
     @allure.step("Validate empty spaces in topic grid")
     def test_grid_populated_columns(self):

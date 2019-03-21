@@ -13,15 +13,15 @@ def pytest_runtest_teardown():
 
 
 @pytest.fixture
-def browser():
+def browser(request):
     """pytest fixture for browser flag"""
-    return pytest.config.getoption("-B")
+    return request.config.getoption("-B")
 
 
 @pytest.fixture
-def headless_flag():
+def headless_flag(request):
     """pytest fixture for headless flag"""
-    return pytest.config.getoption("-H")
+    return request.config.getoption("-H")
 
 
 def pytest_addoption(parser):
