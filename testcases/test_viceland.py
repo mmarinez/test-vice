@@ -9,7 +9,7 @@ from pageobject.factory import Factory
 class Vice(unittest.TestCase):
 
     @allure.step("Validate hidden video module in FREE channel")
-    def test_hidden_video_label(self):
+    def test_free_page_read_only(self):
         Factory.fv_page.navigate_to_vice_free()
         assert Factory.fv_page.has_video_player()
 

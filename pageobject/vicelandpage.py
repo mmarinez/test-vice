@@ -6,6 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
+from values.urls import viceland
 import allure
 import os
 import time
@@ -166,7 +167,7 @@ class vicelandPage(Base):
         try:
             Driver.redirect_to(self.VICELAND_URL)
         except:
-            Driver.redirect_to("https://www.viceland.com/en_us")
+            Driver.redirect_to(viceland)
 
     def click_watch_free_section(self):
         with allure.step("Click watch free videos link"):
@@ -227,13 +228,14 @@ class vicelandPage(Base):
                     Driver.driver.switch_to.frame(self.video_player_frame)
 
                     if self.get_current_timestamp_value() == self.get_default_timestamp_value():
-                        print(self.get_current_timestamp_value())
+                        print("Current time: ", self.get_current_timestamp_value(), "Default time: ", self.get_default_timestamp_value())
                         return False
 
                     Driver.driver.back()
                     time.sleep(2)
                 except:
                     self.click_next_button.click()
+                    time.sleep(2)
                     self.click_free_episode(self.free_episodes, index)
                     Driver.driver.switch_to.frame(self.video_player_frame)
 

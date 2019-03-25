@@ -5,6 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from pageobject.decorators import element, elements
+from values.urls import vice_free
 import time
 import os
 
@@ -37,7 +38,7 @@ class freevicepage(Base):
         try:
             Driver.redirect_to(self.VICE_FREE)
         except:
-            Driver.redirect_to("https://free.vice.com/en_us")
+            Driver.redirect_to(vice_free)
 
     def is_videos_attribute_displayed(self):
         with allure.step("Validate that the video label is displayed"):
