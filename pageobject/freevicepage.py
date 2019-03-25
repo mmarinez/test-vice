@@ -13,7 +13,7 @@ import allure
 
 class freevicepage(Base):
 
-    _element_list = (By.CSS_SELECTOR, "a[class]")
+    _element_list = (By.CSS_SELECTOR, "div[class*=thumbnail]")
     _section_headers = (By.CSS_SELECTOR, "h3,h2[class*='head']")
     _video_strings_validations = (
         "video", "Video", "Episode", "Clip", "duration")
