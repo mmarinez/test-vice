@@ -34,7 +34,10 @@ class freevicepage(Base):
         Base.__init__(self, driver)
 
     def navigate_to_vice_free(self):
-        Driver.redirect_to(self.VICE_FREE)
+        try:
+            Driver.redirect_to(self.VICE_FREE)
+        except:
+            Driver.redirect_to("https://free.vice.com/en_us")
 
     def catch_all_element_attributes(self, element):
         attrs = Driver.driver.execute_script(
@@ -46,7 +49,7 @@ class freevicepage(Base):
 
     def is_videos_label_displayed(self):
         with allure.step("Validate that the video label is displayed"):
-            for element in self.article_list:
+            for element, header in zip(self.article_list, self.section_headers):
 
                 Driver.driver.execute_script(
                     'arguments[0].scrollIntoView()', element)

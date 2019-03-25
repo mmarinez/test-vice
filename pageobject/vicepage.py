@@ -45,7 +45,10 @@ class vicePage(Base):
 
     def navigate_to_vice(self):
         with allure.step("Navigate to vice main page"):
-            Driver.driver.get(self.VICE_URL)
+            try:
+                Driver.redirect_to(self.VICE_URL)
+            except:
+                Driver.redirect_to("https://www.vice.com/en_us")
 
     def click_on_channel_videos_toggle(self):
         with allure.step("Click video channel label menu"):

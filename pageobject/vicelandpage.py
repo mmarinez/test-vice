@@ -163,7 +163,10 @@ class vicelandPage(Base):
         Base.__init__(self, driver)
 
     def navigate_to_viceland(self):
-        Driver.redirect_to(self.VICELAND_URL)
+        try:
+            Driver.redirect_to(self.VICELAND_URL)
+        except:
+            Driver.redirect_to("https://www.viceland.com/en_us")
 
     def click_watch_free_section(self):
         with allure.step("Click watch free videos link"):
