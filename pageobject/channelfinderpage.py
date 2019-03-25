@@ -32,7 +32,10 @@ class ChannelFinder(Base):
         Base.__init__(self, driver)
 
     def input_type_invalid_zip_code(self):
-        self.input_zip_code.send_keys(self.INVALID_ZIPCODE_TEST)
+        try:
+            self.input_zip_code.send_keys(self.INVALID_ZIPCODE_TEST)
+        except:
+            self.input_zip_code.send_keys("10001--")
         time.sleep(5)
 
     def validate_error_provider_message(self):
