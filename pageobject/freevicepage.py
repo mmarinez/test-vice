@@ -13,7 +13,7 @@ import allure
 
 class freevicepage(Base):
 
-    _element_list = (By.CSS_SELECTOR, "div[class*=thumbnail]")
+    _element_list = (By.CSS_SELECTOR, "div[class*=thumbnail],div[class*=container]")
     _section_headers = (By.CSS_SELECTOR, "h3,h2[class*='head']")
     _video_strings_validations = (
         "video", "Video", "Episode", "Clip", "duration")
@@ -49,7 +49,7 @@ class freevicepage(Base):
 
     def is_videos_label_displayed(self):
         with allure.step("Validate that the video label is displayed"):
-            for element, header in zip(self.article_list, self.section_headers):
+            for element in self.article_list:
 
                 Driver.driver.execute_script(
                     'arguments[0].scrollIntoView()', element)
