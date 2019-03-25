@@ -39,7 +39,7 @@ class freevicepage(Base):
         except:
             Driver.redirect_to("https://free.vice.com/en_us")
 
-    def is_videos_label_displayed(self):
+    def is_videos_attribute_displayed(self):
         with allure.step("Validate that the video label is displayed"):
             for element in self.article_list:
 
@@ -52,7 +52,7 @@ class freevicepage(Base):
                     return False
             return True
 
-    def is_video_text_assigned(self):
+    def is_video_text_in_header(self):
         with allure.step("Validate that the headers dont have video text"):
             for header in self.section_headers:
 
@@ -67,4 +67,4 @@ class freevicepage(Base):
 
     def has_video_player(self):
         with allure.step("Validate that video player free"):
-            return self.is_video_text_assigned() and self.is_videos_label_displayed()
+            return self.is_video_text_in_header() and self.is_videos_attribute_displayed()
