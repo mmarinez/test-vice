@@ -50,3 +50,10 @@ class Vice(unittest.TestCase):
     def test_episode_program(self):
         Factory.vl_page.navigate_to_viceland()
         assert Factory.vl_page.validate_episode_link_to_the_program()
+
+    @allure.step("Validate unclocked episode for free trial")
+    def test_unlocked_episode(self):
+        Factory.vl_page.navigate_to_viceland()
+        Factory.vl_page.click_locked_video()
+        Factory.vl_page.click_close_provider_icon()
+        Factory.vl_page.is_video_unlocked()

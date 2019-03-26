@@ -38,10 +38,12 @@ class vicelandPage(Base):
     _episode_name_list = (By.CSS_SELECTOR, "h2[class*='grid']")
     _episode_name = (By.CSS_SELECTOR, "h4[class*='title hed']")
     _show_thumbnail = (By.CSS_SELECTOR, "img[class*='thumbnail']")
-    _episode_list_for_vice_live = (
-        By.XPATH, "//div[@data-index >= 0 ]/div/a[contains(@href,'tuesday') or contains(@href,'wednesday') or contains(@href,'thursday') or contains(@href,'monday')]/h6[@class='slider__title m-t-3-xs hed-m']")
     _greyout_background = (By.XPATH, "//div[@class='tve-greyout']")
     _default_frame = (By.XPATH, "//body[@class='ssr']")
+    _signin_button = (By.CSS_SELECTOR, "a[class*='signin']")
+    _temp_pass = (By.CSS_SELECTOR, "button[class*='temppass']")
+    _locked_video = (By.XPATH, "(//div[contains(@class,'locked')])[1]")
+    _locked_icon = (By.CSS_SELECTOR, "img[class*='locked']")
 
     VICELAND_URL = os.environ.get('VICELAND')
 
@@ -160,6 +162,26 @@ class vicelandPage(Base):
     def default_frame(self):
         return self._default_frame
 
+    @property
+    @element
+    def temp_pass(self):
+        return self._temp_pass
+
+    @property
+    @element
+    def signin_button(self):
+        return self._signin_button
+
+    @property
+    @element
+    def locked_video(self):
+        return self._locked_video
+
+    @property
+    @element
+    def locked_icon(self):
+        return self._locked_icon
+
     def __ini__(self, driver):
         Base.__init__(self, driver)
 
@@ -228,7 +250,8 @@ class vicelandPage(Base):
                     Driver.driver.switch_to.frame(self.video_player_frame)
 
                     if self.get_current_timestamp_value() == self.get_default_timestamp_value():
-                        print("Current time: ", self.get_current_timestamp_value(), "Default time: ", self.get_default_timestamp_value())
+                        print("Current time: ", self.get_current_timestamp_value(
+                        ), "Default time: ", self.get_default_timestamp_value())
                         return False
 
                     Driver.driver.back()
@@ -305,3 +328,34 @@ class vicelandPage(Base):
                             continue
                         return False
         return True
+
+    def click_signin_button(self):
+        self.signin_button.click()
+
+    def click_free_pass(self):
+        self.temp_pass.click()
+        time.sleep(10)
+
+    def click_locked_video(self):
+        self.locked_video.click()
+
+    def click_close_provider_icon(self):
+        self.close_providers_icon.click()
+
+    def is_video_unlocked(self):
+        try:
+            if self.locked_icon.is_displayed():
+                self.click_signin_button()
+                self.click_free_pass()
+                time.sleep(5)
+
+                Driver.driver.switch_to.frame(self.video_player_frame)
+
+                if self.get_current_timestamp_value() == self.get_default_timestamp_value():
+                    print("Current time: ", self.get_current_timestamp_value(),
+                          "Default time: ", self.get_default_timestamp_value())
+                    return False
+                return True
+        except:
+            print("Locked icon is not present")
+            return False
