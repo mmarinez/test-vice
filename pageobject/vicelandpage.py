@@ -231,7 +231,7 @@ class vicelandPage(Base):
     def get_default_timestamp_value(self):
         date_time_obj = datetime.strptime(
             '00:00', '%M:%S')
-        return date_time_obj
+        return date_time_obj.second
 
     def get_current_timestamp_value(self):
         time.sleep(10)
@@ -240,7 +240,7 @@ class vicelandPage(Base):
 
         date_time_current = datetime.strptime(
             self.time_stamp.text, '%M:%S')
-        return date_time_current
+        return date_time_current.second
 
     def validate_FREE_episode(self):
         with allure.step("Click episode in the FREE this week section"):
@@ -263,7 +263,8 @@ class vicelandPage(Base):
                     Driver.driver.switch_to.frame(self.video_player_frame)
 
                     if self.get_current_timestamp_value() == self.get_default_timestamp_value():
-                        print(self.get_current_timestamp_value())
+                        print("Current time: ", self.get_current_timestamp_value(
+                        ), "Default time: ", self.get_default_timestamp_value())
                         return False
 
                     Driver.driver.back()
@@ -357,5 +358,5 @@ class vicelandPage(Base):
                     return False
                 return True
         except:
-            print("Locked icon is not present")
+            print("Unable to validate free pass")
             return False
