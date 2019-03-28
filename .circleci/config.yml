@@ -29,6 +29,11 @@ jobs:
             - v1-dependencies-
 
       - run:
+          name: Switch Timezone To New_York
+          command: |
+            cp /usr/share/zoneinfo/America/New_York /etc/localtime
+
+      - run:
           name: install dependencies
           command: |
             python3 -m venv venv
