@@ -250,9 +250,12 @@ class vicelandPage(Base):
                     Driver.driver.switch_to.frame(self.video_player_frame)
 
                     if self.get_current_timestamp_value() == self.get_default_timestamp_value():
-                        print("Current time: ", self.get_current_timestamp_value(
-                        ), "Default time: ", self.get_default_timestamp_value())
+                        print("Current time: ", self.get_current_timestamp_value(),
+                              "Default time: ", self.get_default_timestamp_value())
                         return False
+
+                    print("Current time: ", self.get_current_timestamp_value(),
+                          "Default time: ", self.get_default_timestamp_value())
 
                     Driver.driver.back()
                     time.sleep(2)
@@ -263,9 +266,12 @@ class vicelandPage(Base):
                     Driver.driver.switch_to.frame(self.video_player_frame)
 
                     if self.get_current_timestamp_value() == self.get_default_timestamp_value():
-                        print("Current time: ", self.get_current_timestamp_value(
-                        ), "Default time: ", self.get_default_timestamp_value())
+                        print("Current time: ", self.get_current_timestamp_value(),
+                              "Default time: ", self.get_default_timestamp_value())
                         return False
+
+                    print("Current time: ", self.get_current_timestamp_value(),
+                          "Default time: ", self.get_default_timestamp_value())
 
                     Driver.driver.back()
                     time.sleep(2)
