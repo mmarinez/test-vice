@@ -34,11 +34,6 @@ class Vice(unittest.TestCase):
         Factory.vl_page.navigate_to_viceland()
         assert Factory.vl_page.validate_FREE_this_week_title()
 
-    @allure.step("Validate FREE episode availability")
-    def test_free_episode(self):
-        Factory.vl_page.navigate_to_viceland()
-        assert Factory.vl_page.validate_FREE_episode()
-
     @allure.step("Validate unable to get provider message")
     def test_provider_message(self):
         Factory.vl_page.navigate_to_viceland()
