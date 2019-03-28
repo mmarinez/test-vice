@@ -58,15 +58,3 @@ jobs:
       - store_test_results:
           path: ./reports/
 
-workflows:
-  version: 2
-  commit:
-    jobs:
-      - build
-    triggers:
-      - schedule:
-          cron: "* * * * 1-5"
-          filters:
-            branches:
-              only:
-                - master
