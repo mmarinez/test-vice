@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Switch Timezone To New_York
           command: |
-            sudo cp /usr/share/zoneinfo/America/New_York /etc/localtime
+           sudo cp /usr/share/zoneinfo/America/New_York /etc/localtime
 
       - run:
           name: install dependencies
@@ -63,3 +63,15 @@ jobs:
       - store_test_results:
           path: ./reports/
 
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+    triggers:
+      - schedule:
+          cron: "0 9-19 * * 1-5"
+          filters:
+            branches:
+              only:
+                - master
