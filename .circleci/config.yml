@@ -49,7 +49,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest -s testcases/test_viceland.py -v -k 'test_free_ep' --headless=true --alluredir ./reports/
+            pytest testcases/test_viceland.py -v --headless=true --alluredir ./reports/
 
       - store_artifacts:
           path: ./reports/
@@ -58,3 +58,15 @@ jobs:
       - store_test_results:
           path: ./reports/
 
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+    triggers:
+      - schedule:
+          cron: "0 9-19 * * 1-5"
+          filters:
+            branches:
+              only:
+                - master

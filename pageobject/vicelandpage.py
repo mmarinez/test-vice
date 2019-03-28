@@ -249,9 +249,9 @@ class vicelandPage(Base):
                     self.click_free_episode(self.free_episodes, index)
                     Driver.driver.switch_to.frame(self.video_player_frame)
 
-                    if self.get_current_timestamp_value == self.get_default_timestamp_value:
-                        print("Current time: ", self.get_current_timestamp_value(),
-                              "Default time: ", self.get_default_timestamp_value())
+                    if self.get_current_timestamp_value() == self.get_default_timestamp_value():
+                        print("Current time: ", self.get_current_timestamp_value,
+                              "Default time: ", self.get_default_timestamp_value)
                         return False
 
                     print("Current time: ", self.get_current_timestamp_value(),
@@ -265,9 +265,9 @@ class vicelandPage(Base):
                     self.click_free_episode(self.free_episodes, index)
                     Driver.driver.switch_to.frame(self.video_player_frame)
 
-                    if self.get_current_timestamp_value == self.get_default_timestamp_value:
-                        print("Current time: ", self.get_current_timestamp_value(),
-                              "Default time: ", self.get_default_timestamp_value())
+                    if self.get_current_timestamp_value() == self.get_default_timestamp_value():
+                        print("Current time: ", self.get_current_timestamp_value,
+                              "Default time: ", self.get_default_timestamp_value)
                         return False
 
                     print("Current time: ", self.get_current_timestamp_value(),
