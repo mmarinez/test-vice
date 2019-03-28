@@ -254,9 +254,6 @@ class vicelandPage(Base):
                               "Default time: ", self.get_default_timestamp_value)
                         return False
 
-                    print("Current time: ", self.get_current_timestamp_value(),
-                          "Default time: ", self.get_default_timestamp_value())
-
                     Driver.driver.back()
                     time.sleep(2)
                 except:
@@ -269,9 +266,6 @@ class vicelandPage(Base):
                         print("Current time: ", self.get_current_timestamp_value,
                               "Default time: ", self.get_default_timestamp_value)
                         return False
-
-                    print("Current time: ", self.get_current_timestamp_value(),
-                          "Default time: ", self.get_default_timestamp_value())
 
                     Driver.driver.back()
                     time.sleep(2)
@@ -362,8 +356,6 @@ class vicelandPage(Base):
                     print("Current time: ", self.get_current_timestamp_value(),
                           "Default time: ", self.get_default_timestamp_value())
                     return False
-                print("Current time: ", self.get_current_timestamp_value(),
-                      "Default time: ", self.get_default_timestamp_value())
                 return True
         except:
             print("Unable to validate free pass")
