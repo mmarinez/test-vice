@@ -54,7 +54,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest testcases/test_viceland.py -v --headless=true --alluredir ./reports/
+            pytest -s testcases/test_viceland.py -v --headless=true --alluredir ./reports/
 
       - store_artifacts:
           path: ./reports/

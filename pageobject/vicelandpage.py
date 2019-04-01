@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 from values.urls import viceland
+from selenium.common.exceptions import NoSuchElementException
 import allure
 import os
 import time
@@ -44,6 +45,7 @@ class vicelandPage(Base):
     _temp_pass = (By.CSS_SELECTOR, "button[class*='temppass']")
     _locked_video = (By.XPATH, "(//div[contains(@class,'locked')])[1]")
     _locked_icon = (By.CSS_SELECTOR, "img[class*='locked']")
+    _ad_countdown = (By.CSS_SELECTOR, "span[class='countdown']")
 
     VICELAND_URL = os.environ.get('VICELAND')
 
@@ -178,9 +180,14 @@ class vicelandPage(Base):
         return self._locked_video
 
     @property
-    @element
+    @elements
     def locked_icon(self):
         return self._locked_icon
+
+    @property
+    @elements
+    def ad_countdown(self):
+        return self._ad_countdown
 
     def __ini__(self, driver):
         Base.__init__(self, driver)
@@ -345,18 +352,30 @@ class vicelandPage(Base):
 
     def is_video_unlocked(self):
         try:
-            if self.locked_icon.is_displayed():
+            if self.locked_icon:
                 self.click_signin_button()
                 self.click_free_pass()
-                time.sleep(5)
 
                 Driver.driver.switch_to.frame(self.video_player_frame)
 
-                if self.get_current_timestamp_value() == self.get_default_timestamp_value():
-                    print("Current time: ", self.get_current_timestamp_value(),
-                          "Default time: ", self.get_default_timestamp_value())
-                    return False
+                ActionChains(Driver.driver).move_to_element_with_offset(
+                    self.free_videos_wrapper, 50, 50).perform()
+
+            if self.video_player_controls.is_displayed():
+                print("""Free pass activated, video player is available""")
                 return True
-        except:
-            print("Unable to validate free pass")
+
+        except NoSuchElementException as exception:
+            print("Something went wrong, video player is unavailable ", exception)
             return False
+
+    def is_ad_displayed(self):
+        Driver.driver.switch_to.frame(self.video_player_frame)
+        try:
+            if self.ad_countdown:
+                countdown = self.ad_countdown.text.split(':')[1]
+                while int(countdown) > 1:
+                    countdown = self.ad_countdown.text.split(':')[1]
+        except:
+            print('Ad is not displayed ')
+            pass

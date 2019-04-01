@@ -51,4 +51,10 @@ class Vice(unittest.TestCase):
         Factory.vl_page.navigate_to_viceland()
         Factory.vl_page.click_locked_video()
         Factory.vl_page.click_close_provider_icon()
-        Factory.vl_page.is_video_unlocked()
+        assert Factory.vl_page.is_video_unlocked()
+
+    @allure.step("Check if the advertisement is fully displayed")
+    def test_advertisement(self):
+        Factory.vl_page.navigate_to_viceland()
+        Factory.vl_page.click_watch_free_section()
+        Factory.vl_page.is_ad_displayed()
