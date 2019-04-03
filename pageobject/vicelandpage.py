@@ -7,10 +7,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 from values.urls import viceland
-from selenium.common.exceptions import NoSuchElementException
 import allure
 import os
 import time
+import sys
 
 
 class vicelandPage(Base):
@@ -352,6 +352,7 @@ class vicelandPage(Base):
 
     def is_video_unlocked(self):
         try:
+
             if self.locked_icon:
                 self.click_signin_button()
                 self.click_free_pass()
@@ -365,8 +366,8 @@ class vicelandPage(Base):
                 print("""Free pass activated, video player is available""")
                 return True
 
-        except NoSuchElementException as exception:
-            print("Something went wrong, video player is unavailable ", exception)
+        except Exception:
+            print("Something went wrong, video player is unavailable ", Exception)
             return False
 
     def is_ad_displayed(self):

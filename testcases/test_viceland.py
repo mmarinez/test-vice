@@ -4,8 +4,10 @@ import allure
 import pytest
 from driver.driver import Driver
 from pageobject.factory import Factory
+from pageobject.decorators import screenshotOnFail
 
 
+@screenshotOnFail()
 class Vice(unittest.TestCase):
 
     @allure.step("Validate hidden video module in FREE channel")

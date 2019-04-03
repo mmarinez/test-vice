@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 import allure
 import os
+import sys
 
 
 class Driver(object):
@@ -64,15 +65,5 @@ class Driver(object):
 
     @classmethod
     def quit(cls):
-        if cls.driver:
-            try:
-                console_log = cls.driver.get_log('browser')
-                allure.attach(cls.driver.get_screenshot_as_png(),
-                              name="Screenshot",
-                              attachment_type=AttachmentType.PNG)
-                allure.attach(str(console_log),
-                              name="Console Log",
-                              attachment_type=AttachmentType.TEXT)
-            except:
-                pass
-            cls.driver.quit()
+
+        cls.driver.quit()
